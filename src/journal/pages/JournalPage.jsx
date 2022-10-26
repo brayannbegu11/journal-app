@@ -1,9 +1,10 @@
-import React from 'react'
+import { MailOutline } from '@mui/icons-material'
+import { Typography } from '@mui/material'
 
 function JournalPage() {
   return (
     <>
-      <h1>JournalAPP</h1>
+      <Typography variant="h1">JournalPage</Typography>
     </>
   )
 }
