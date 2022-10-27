@@ -1,11 +1,20 @@
-import { MailOutline } from '@mui/icons-material'
-import { Typography } from '@mui/material'
+import JournalLayout from '../layout/JournalLayout'
+import NoteView from '../views/NoteView'
+import NothingSelectedView from '../views/NothingSelectedView'
 
 function JournalPage() {
   return (
-    <>
-      <Typography variant="h1">JournalPage</Typography>
-    </>
+    <JournalLayout>
+      {/* <Typography>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis
+        autem quam nostrum, doloremque accusamus numquam, fugit ratione vero
+        dicta ipsam nobis saepe sequi, distinctio quis tempore cumque excepturi
+        aut ab!
+      </Typography> */}
+      {/* <NothingSelectedView /> */}
+
+      <NoteView />
+    </JournalLayout>
   )
 }
 
