@@ -1,12 +1,44 @@
-import { Google } from '@mui/icons-material'
 import { Button, Grid, Link, TextField, Typography } from '@mui/material'
+import { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
+import { useForm } from '../../hooks/useForm'
 import AuthLayout from '../layout/AuthLayout'
 
+const formData = {
+  displayName: '',
+  email: '',
+  password: '',
+}
+
+const formValidations = {
+  email: [(value) => value.includes('@'), 'El correo debe tener una @'],
+  password: [(value) => value.length >= 6, 'El password debe tener más de 6 caracteres'],
+  displayName: [(value) => value.length >= 5, 'El nombre es obligatorio'],
+}
+
 function RegisterPage() {
+
+  const [formSubmitted, setFormSubmitted] = useState(false)
+  const {
+    formState,
+    displayName,
+    email,
+    password,
+    onInputChange,
+    isFormValid,
+    displayNameValid,
+    emailValid,
+    passwordValid,
+  } = useForm(formData, formValidations)
+
+  const onSubmit = (event) => {
+    event.preventDefault()
+    setFormSubmitted(true)
+    console.log(formState)
+  }
   return (
     <AuthLayout title="Crear cuenta">
-      <form action="">
+      <form onSubmit={onSubmit}>
         <Grid container>
           <Grid item xs={12} sx={{ mt: 2 }}>
             <TextField
@@ -14,6 +46,11 @@ function RegisterPage() {
               type="text"
               placeholder="Tu nombre"
               fullWidth
+              name="displayName"
+              value={displayName}
+              onChange={onInputChange}
+              error = {!!displayNameValid && formSubmitted}
+              helperText = {displayNameValid}
             />
           </Grid>
           <Grid item xs={12} sx={{ mt: 2 }}>
@@ -22,6 +59,11 @@ function RegisterPage() {
               type="email"
               placeholder="correo@google.com"
               fullWidth
+              name="email"
+              value={email}
+              onChange={onInputChange}
+              error = {!!emailValid && formSubmitted}
+              helperText = {emailValid}
             />
           </Grid>
           <Grid item xs={12} sx={{ mt: 2 }}>
@@ -30,10 +72,15 @@ function RegisterPage() {
               type="password"
               placeholder="contraseña"
               fullWidth
+              name="password"
+              value={password}
+              onChange={onInputChange}
+              error = {!!passwordValid && formSubmitted}
+              helperText = {passwordValid}
             />
             <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
               <Grid item xs={12}>
-                <Button variant="contained" fullWidth>
+                <Button type="submit" variant="contained" fullWidth>
                   Crear cuenta
                 </Button>
               </Grid>
