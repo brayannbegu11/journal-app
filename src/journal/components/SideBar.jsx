@@ -13,9 +13,11 @@ import {
   Typography,
 } from '@mui/material'
 import { useSelector } from 'react-redux'
+import { SideBarItem } from './SideBarItem'
 
 function SideBar({ drawerWidth = 240 }) {
-  const {displayName} = useSelector(state => state.auth)
+  const { displayName } = useSelector((state) => state.auth)
+  const {notes} = useSelector((state) => state.journal)
   return (
     <Box
       component="nav"
@@ -36,22 +38,8 @@ function SideBar({ drawerWidth = 240 }) {
         </Toolbar>
         <Divider />
         <List>
-          {['Enero', 'Febrero', 'Marzo', 'Abril'].map((text) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <TurnedInNot />
-                </ListItemIcon>
-                <Grid container>
-                  <ListItemText primary={text} />
-                  <ListItemText
-                    secondary={
-                      'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-                    }
-                  />
-                </Grid>
-              </ListItemButton>
-            </ListItem>
+          {notes.map((note) => (
+            <SideBarItem key={note.id} {...note}/>
           ))}
         </List>
       </Drawer>
